@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="COMPANY">
+
+<insert id="insert" 
+        parameterType="com.springbook.biz.company.CompanyVo"  >
+ insert  into  company (seq, rdnmadr, logitude, entrprsNm, rprsntvNm, latitude, mainGoods)
+  values( #{SEQ}, #{rdnmadr}, #{logitude}, #{entrprsNm}, #{rprsntvNm}, #{latitude}, #{mainGoods})
+</insert>
+
+<select id="select"  resultType="com.springbook.biz.company.CompanyVo">
+ 
+ select  *  from  company
+
+</select>
+
+</mapper>

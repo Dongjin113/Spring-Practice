@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%@ include file="../include/top.jsp" %>
+
+
+<section>
+<br>
+<div align="center">
+<h2> 카카오 지도 연습 2 </h2>
+
+ <div id="map" style="width:100%;height:750px;"></div>
+<p>
+    <button onclick="hideMarkers()">마커 감추기</button>
+    <button onclick="showMarkers()">마커 보이기</button>
+</p> 
+<em>클릭한 위치에 마커가 표시됩니다!</em>
+    
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2fb9031d27e12ecf3383c962c58416cd"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.379855775783184, 126.52691599216999), // 지도의 중심좌표
+        level: 10 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+var markers = [];
+
+// 마커 하나를 지도위에 표시합니다 
+// 33.1206371!4d126.2671204 ( 마라도 )
+var title = ['마라도','섭지코지','성산일출봉','비양도','서귀포시','차귀도', '한라한']           
+var lat = [33.1206371,33.43110070088868, 33.467529585445796,  33.40008575665509, 33.258222769268535 ,  33.31178531314658, 33.379855775783184] 
+var lon = [126.2671204,126.92781417796924, 126.93462584853633, 126.26375498609065, 126.51632575761015, 126.16965945165987, 126.52691599216999]
+
+for (i=0 ; i <= 6 ; i++ ){
+  addMarker(new kakao.maps.LatLng(lat[i], lon[i]));
+  
+//인포윈도우를 생성하고 지도에 표시합니다
+  var infowindow = new kakao.maps.InfoWindow({
+      map: map, 
+      position : new kakao.maps.LatLng(lat[i]+0.02, lon[i]+0.01), 
+      content : '<div style="padding:4px;">'+ title[i] +'</div>',
+      removable : true
+  });
+  
+  
+}
+
+// 마커를 생성하고 지도위에 표시하는 함수입니다
+function addMarker(position) {
+    
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: position
+
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+    
+    // 생성된 마커를 배열에 추가합니다
+    markers.push(marker);
+}
+
+// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+function setMarkers(map) {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+    }            
+}
+
+// "마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
+function showMarkers() {
+    setMarkers(map)    
+}
+
+// "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
+function hideMarkers() {
+    setMarkers(null);    
+}
+</script>
+
+</div>
+<br>
+</section>
+<%@ include file="../include/bottom.jsp" %>

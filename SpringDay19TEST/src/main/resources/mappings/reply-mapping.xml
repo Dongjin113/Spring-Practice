@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="REPLY">
+
+<select id="getBoardList"  parameterType="reply"   resultType="reply"  >
+  select  idx, sno, reply, replayer, replyDate  
+  from  student_reply where sno=#{sno} order  by  idx  desc 
+</select>
+
+<insert id="insert"  parameterType="reply" >
+ insert  into student_reply (idx, sno, reply, replayer)
+ values (seq_replay.nextval, #{sno}, #{reply}, #{replayer} ) 
+
+</insert>
+
+<delete id="delete"  parameterType="reply"  >
+ delete  from  student_reply where idx=#{idx}
+</delete>
+
+</mapper>

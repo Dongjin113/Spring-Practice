@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MEMBER">
+
+<insert id="insert" parameterType="member"  >
+insert  into  member0921 (id, pwd, bcrypt,name, role, addr, tel, registration   ) 
+values (#{id}, #{pwd}, #{bcrypt}, #{name}, #{role}, #{addr}, #{tel}, #{date})
+</insert>
+
+<update id="update"  parameterType="member"  >
+update member0921 
+set pwd=#{pwd}, bcrypt=#{bcrypt},name=#{name}, role=#{role}, addr=#{addr}, tel=#{tel}, registration=#{date} 
+where id=#{id}
+</update>
+
+
+<delete id="delete" parameterType="member" >
+ delete  from  member0921 where id=#{id}  
+</delete>
+
+<select id="getBorad"  parameterType="member"   resultType="member"  >
+select  *  from member0921  where id=#{id}
+</select>
+
+<select id="getBoradList"  resultType="member"  >
+  select  *  from member0921  
+</select>
+
+<select id="login"  parameterType="member"   resultType="member"  >
+select  *  from member0921  where id=#{id}
+</select>
+
+</mapper>

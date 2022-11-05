@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BIGDATA">
+
+<select id="selectTop15"  resultType="bigdata"  >
+<![CDATA[
+ select  rownum, Q.*  from (  
+   select  rownum  as rnum, K.* 
+            from  
+           ( select  * from bigdatatable  
+              where 1=1
+              
+               ]]> 
+               
+              <if test="searchCondition=='birth_date' " >
+                and  birth_date like '%'||#{searchKeyword}||'%'
+              </if>
+              
+                            
+              <if test="searchCondition=='first_name' " >
+               and  first_name like '%'||#{searchKeyword}||'%'
+              </if>
+              
+                            
+              <if test="searchCondition=='last_name' " >
+               and  last_name like '%'||#{searchKeyword}||'%'
+              </if>
+              
+              <![CDATA[
+              order  by  emp_no  desc ) K   
+   where  rownum <= 15 ) Q 
+ where rnum >= 1  
+ ]]>   
+</select>
+
+
+<select id="selectList"  resultType="bigdata"  >
+<![CDATA[
+ select  rownum, Q.*  from (  
+   select  rownum  as rnum, K.* 
+            from  
+           ( select  * from T0923
+             where  1=1 
+            ]]> 
+               <if test="searchCondition=='last_name' " >
+               <![CDATA[
+                  and  last_name like '%'||#{searchKeyword}||'%'
+                ]]> 
+                </if>
+              
+                            
+               <if test="searchCondition=='gender' " >
+               <![CDATA[
+                  and  gender like '%'||#{searchKeyword}||'%'
+               ]]>   
+               </if>
+           <![CDATA[
+            order  by  emp_no  desc ) K   
+   where  rownum <= #{endIdx} ) Q 
+ where rnum >= #{startIdx}  
+ ]]>   
+</select>
+
+
+<select id="totalCount"  resultType="int"  >
+
+   select  count(*) as totalCount from T0923 
+   where 1=1 
+               
+   <if test="searchCondition=='last_name' " >
+       and  last_name like '%'||#{searchKeyword}||'%'
+   </if>              
+                            
+   <if test="searchCondition=='gender' " >
+      and  gender like '%'||#{searchKeyword}||'%'
+   </if>
+               
+ 
+</select>
+
+</mapper>

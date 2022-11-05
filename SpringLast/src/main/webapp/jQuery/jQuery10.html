@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script  src="http://code.jquery.com/jquery-1.10.2.js" ></script>
+<script>
+    $(document).ready(()=> {
+      $('textarea').keyup((e)=> {
+        var inputLength = $(e.target).val().length;
+        var remain = 100 - inputLength;
+
+        // 문서 객체에 출력합니다.
+        if (remain > 0) {
+          $('h1').html(remain);
+        } else {
+          alert("글자 수가 초과되었습니다.!!!");
+          $('h1').html('<font color=red>' + remain + '</font>');
+        }
+        
+    });
+  });
+</script></head>
+<body>
+  <div >    <p> 내 생각을 작성해 보자. </p>   <h1> 100자 </h1>
+    <textarea cols="70"  rows="5"></textarea>
+  </div>
+</body>  
+</html>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .reverse{
+     background: black;
+     color : white;
+  }
+
+
+</style>
+
+<script  src="http://code.jquery.com/jquery-1.10.2.js" ></script>
+<script>
+     $(function(){   
+      
+         /*  방법 1.  */
+         $('h1').click(function() {
+             $(this).html(function(index, str){
+               return  str + '@';
+             })
+          });
+
+          /*  방법 2.  */
+          $('h1').click(() => {
+             $(this).html(function(index, str){
+               return  str + '@';
+             })
+          });
+
+          /*  방법 1.  */
+          setInterval(function() {
+             $('h1').first().trigger('click');
+          }, 3000);
+
+          /*  방법 2.  */
+          setInterval(() => {
+             $('h1').last().trigger('click');
+          }, 5000);
+
+     })
+
+</script>
+</head>
+<body>
+  <h1>이벤트</h1>   <h1>이벤트</h1> <h1>이벤트</h1> <h1>이벤트</h1>
+</body>
+</html>

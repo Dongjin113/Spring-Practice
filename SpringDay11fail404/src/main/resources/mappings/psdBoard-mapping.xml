@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PSDBOARD">
+
+<insert id="insert" parameterType="psdBoard"  >
+insert into  boardPsd (seq, title, writer, content, regdate, updatefile ) 
+  values ((select nvl(max(seq),1001)+1 from boardPsd ),#{title}, #{writer}, #{content}, #{regdate}, #{updateFile})
+</insert>
+
+<update id="update"  parameterType="psdBoard"  >
+</update>
+
+<delete id="delete" parameterType="psdBoard">
+</delete>
+
+<update id="cnt"  parameterType="psdBoard"  >
+</update>
+
+<select id="getExamList"  resultType="psdBoard"  >
+</select>
+
+<select id="getExam"  parameterType="psdBoard"   resultType="psdBoard"  >
+</select>
+
+</mapper>

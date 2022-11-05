@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AJAX">
+
+<insert id="insert" parameterType="ajax"  >
+ insert  into  examtbl7(sno, sname, kor, eng, math, hist)
+  values( #{sno}, #{sname}, #{kor}, #{eng}, #{math}, #{hist})
+</insert>
+
+<update id="update"  parameterType="ajax"  >
+ update  examtbl7 set sname=#{sname}, kor=#{kor}, eng=#{eng}, math=#{math}, hist=#{hist} 
+ where sno=#{sno}
+</update>
+
+<delete id="delete" >
+  delete  from  examtbl7 where  sno=#{sno}
+</delete>
+
+<select id="getAjax"  parameterType="ajax"   resultType="ajax"  >
+   select * from examtbl7 where sno=#{sno}    
+</select>
+
+<select id="getAjaxList"  resultType="ajax"  >
+   select * from examtbl7 order by sno asc      
+</select>
+
+
+</mapper>

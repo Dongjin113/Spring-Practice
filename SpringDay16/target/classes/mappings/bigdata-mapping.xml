@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BIGDATA">
+
+
+
+<select id="selectTop15"  parameterType="bigdata"   resultType="bigdata"  >
+<![CDATA[
+select rownum, Q.* from
+(select rownum as rnum, K.* 
+from (select * from bigdatatable 
+	where 1=1
+	]]>
+	<if test="searchkey=='birth_date' ">
+	and birth_date like '%'||#{search}||'%'
+	</if>
+	
+	<if test="searchkey=='first_name' ">
+	and first_name like '%'||#{search}||'%'
+	</if>
+	
+	<if test="searchkey=='last_name' ">
+	and last_name like '%'||#{search}||'%'
+	</if>
+
+<![CDATA[
+order by emp_no desc) K 
+where rownum <=15)
+Q where rnum >=1 
+]]>
+</select>
+
+</mapper>

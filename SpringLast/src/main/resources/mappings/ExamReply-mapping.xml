@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ExamReply">
+
+<select id="select"  parameterType="examReply"   resultType="examReply"  >
+  select  idx, sno, reply, replayer, replyDate  
+  from  exam_reply where sno=#{sno} order  by  idx  desc 
+</select>
+
+<insert id="insert"  parameterType="examReply" >
+ insert  into exam_reply (idx, sno, reply, replayer)
+ values (seq_exam_reply.nextval, #{sno}, #{reply}, #{replayer} ) 
+
+</insert>
+
+<delete id="delete"  parameterType="examReply"  >
+ delete  from  exam_reply where idx=#{idx}
+</delete>
+
+</mapper>

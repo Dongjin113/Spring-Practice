@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PSD">
+
+<resultMap type="psd" id="psdResult">
+ <!-- property 값은 Vo 의 필드명 , column의 값은 SQL 구문의 칼럼명 -->
+ <id property="seq" column="seq" />
+ <result property="seq" column="seq"/>
+ <result property="title" column="title"/>
+ <result property="writer" column="writer"/>
+ <result property="content" column="content"/>
+ <result property="regDateStr" column="regdate"/>
+ <result property="cnt" column="cnt"/>
+ <result property="updateFileStr" column="updatefile"/>
+</resultMap>
+
+<insert id="insertPsd"  parameterType="psd">
+<![CDATA[
+  insert into  boardPsd (seq, title, writer, content, regdate, updatefile ) 
+  values ((select nvl(max(seq),1001)+1 from boardPsd ),#{title}, #{writer}, #{content}, #{regdate}, #{updatefile}) 
+]]>
+</insert>
+
+<select id="getPsdList"  resultMap="psdResult">
+<![CDATA[
+   select  *  from  boardPsd order by seq  desc
+ ]]>
+</select>
+
+<select id="getPsd" parameterType="psd" resultType="psd">
+<![CDATA[
+  select  seq, title, writer, content, regdate, updatefile as updatefilestr , cnt  
+  from  boardPsd where seq =#{seq}
+]]>
+</select>
+
+
+<delete id="deletePsd"  parameterType="psd" >
+  delete from boardPsd where seq=#{seq}
+</delete>
+
+<update id="UPDATE_SQL1" parameterType="psd" >
+ update boardPsd set title=#{title}, content=#{content}, updatefile=#{updatefile} ,regdate=#{regdate} 
+ where seq=#{seq} 
+ </update>
+<update id="UPDATE_SQL2"  parameterType="psd">
+update boardPsd set title=#{title}, content=#{content} , regdate=#{regdate} where seq=#{seq} 
+ </update>
+
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDAO">
+<insert id="insertBoard" parameterType="board" >
+ insert into  board (seq, title, writer, content, regdate) 
+ values ((select max(nvl(seq,0))+1 from board ), #{title}, #{writer}, #{content}, #{regDateStr})
+</insert>
+
+<update id="updateBoard"  parameterType="board" >
+  update board set  title=#{title}, writer=#{writer}, content=#{content} where seq=#{seq}
+</update>
+
+<update id="cnt"  parameterType="board" >
+  update board set  cnt=cnt+1 where seq=#{seq} 
+</update>
+
+<delete  id="deleteBoard"  parameterType="board" >
+ delete  from board  where seq=#{seq}
+</delete>
+
+<select  id="getBoard"  parameterType="board" resultType="board" >
+  select  *  from  board  where seq=#{seq} 
+</select>
+
+<select id="getBoardList"  resultType="board"  >
+   select * from board
+   where  1 = 1
+    <if test="searchCondition=='title'" >
+    and title like #{searchKeyword} 
+    </if>
+    <if  test="searchCondition=='writer'" >
+     and writer like #{searchKeyword} 
+    </if>
+   order by seq  desc
+</select>
+
+<!-- 
+<select id="GETBOARDTITLE"  resultType="board"  >
+  select * from board 
+  where title like #{searchKeyword} order by seq  desc
+</select>
+
+<select id="GETBOARDWRITER"  resultType="board"  >
+   select * from board 
+   where writer like #{searchKeyword} order by seq  desc
+</select>
+ -->
+ 
+</mapper>

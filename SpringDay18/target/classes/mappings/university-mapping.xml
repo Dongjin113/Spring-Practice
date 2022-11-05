@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="university">
+
+<select id="student"  resultType="student"  >
+   select * from student order by sno asc      
+</select>
+
+<select id="studentEdit"  parameterType="student"  resultType="student"  >
+   select * from student where sno=#{sno}      
+</select>
+
+<update id="studentUpdate" parameterType="student"  >
+ update  student set sname=#{sname} , year=#{year} , dept=#{dept} 
+ where  sno=#{sno}
+</update>
+
+<select id="course"  resultType="course"  >
+   select * from course order by cno asc      
+</select>
+
+<select id="courseEdit"  resultType="course"  >
+   select * from course where  cno=#{cno}    
+</select>
+
+
+<select id="enrol"  resultType="enrol"  >
+   select sno, cno, grade, midterm, final as finalstr  from enrol order by sno asc      
+</select>
+
+<select id="sejoin"  resultType="sejoin"  >
+   select  s.sno , sname, year, dept, cno, grade, midterm , final as finalstr  from student s left join  enrol e on s.sno = e.sno       
+</select>
+
+<select id="secjoin"  resultType="secjoin"  >
+   select  s.sno , sname, year, s.dept sdept , e.cno, grade, midterm ,final as finalstr , cname, credit, c.dept cdept ,prname 
+   from student s join  enrol e on s.sno = e.sno 
+   join course c on c.cno = e.cno       
+</select>
+
+<insert id="studentInsert"  parameterType="student"  >
+ insert into  student (sno, sname, year, dept )
+ values(#{sno}, #{sname}, #{year}, #{dept})
+</insert>
+
+<insert id="enrolInsert"  parameterType="enrol"  >
+ insert into  enrol (sno, cno, grade, midterm, final )
+ values( #{sno}, #{cno}, #{grade}, #{midterm}, #{finalstr} )
+</insert>
+
+<select id="enrolEdit"  resultType="enrol"  >
+   select sno, cno, grade, midterm, final as finalstr  from enrol where sno=#{sno} and cno=#{cno}   
+</select>
+
+<update id="enrolUpdate" parameterType="enrol"  >
+ update  enrol set grade=#{grade} , midterm=#{midterm} , final=#{finalstr} 
+ where  sno=#{sno} and cno=#{cno}
+</update>
+
+<select id="courseGroup"  resultType="courseGroup"  >
+   select  c.cno, cname,  round(avg(midterm),1) midtermdouble  , round(avg(final),1) as finaldouble  from student s join  enrol e on s.sno = e.sno 
+   join course c on c.cno = e.cno 
+   group  by  c.cno, cname
+</select>
+
+
+</mapper>

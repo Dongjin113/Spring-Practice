@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC 
+  "-//mybatis.org//DTD Config 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+  <typeAliases>
+    <typeAlias alias="exam" type="com.springbook.biz.examtbl.ExamtblVo"   />  
+    <typeAlias alias="student" type="com.springbook.biz.university.StudentVo"   />  
+    <typeAlias alias="course" type="com.springbook.biz.university.CourseVo"   />  
+    <typeAlias alias="enrol" type="com.springbook.biz.university.EnrolVo"   />  
+    <typeAlias alias="sejoin" type="com.springbook.biz.university.SEJoinVo"   />  
+    <typeAlias alias="secjoin" type="com.springbook.biz.university.SECJoinVo"   />  
+    <typeAlias alias="courseGroup" type="com.springbook.biz.university.CourseGroupVo"   />  
+    <typeAlias alias="psdBoard" type="com.springbook.biz.psdBoard.BoardPsdVo"   />  
+    <typeAlias alias="bigdata" type="com.springbook.biz.bigdata.BigdataVo"   />  
+
+   </typeAliases>
+
+
+  <mappers>
+    <mapper resource="mappings/examtbl-mapping.xml"  />
+    <mapper resource="mappings/university-mapping.xml"  />
+    <mapper resource="mappings/psdBoard-mapping.xml"  />
+    <mapper resource="mappings/bigdata-mapping.xml"  />
+  </mappers>
+</configuration>  
+  

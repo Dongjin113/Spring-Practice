@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="university">
+
+<select id="student"  resultType="student"  >
+   select * from student order by sno asc      
+</select>
+
+<select id="course"  resultType="course"  >
+   select * from course order by cno asc      
+</select>
+
+<select id="enrol"  resultType="enrol"  >
+   select sno, cno, grade, midterm, final as finalstr   from enrol order by sno asc      
+</select>
+
+<select id="sejoin"  resultType="sejoin"  >
+   select  s.sno , sname, year, dept, cno, grade, midterm, final as finalstr  from student s left join  enrol e on s.sno = e.sno       
+</select>
+
+<select id="secjoin"  resultType="secjoin"  >
+   select  s.sno , sname, year, s.dept sdept , e.cno, grade, midterm, final as finalstr , cname,credit, c.dept cdept ,prname 
+   from student s join  enrol e on s.sno = e.sno 
+   join course c on c.cno = e.cno       
+</select>
+
+<insert id="insert" parameterType="student">
+insert into student(sno, sname, year, dept) 
+values(#{sno}, #{sname}, #{year}, #{dept})
+</insert>
+
+<select id="getstudent"  resultType="student" parameterType="student"  >
+   select sno, sname, year, dept from student where sno = #{sno} 
+</select>
+
+<select id="getenrol" resultType="enrol" parameterType="enrol"  >
+   select sno, cno, grade, midterm, final as finalstr from enrol where sno = #{sno} and cno = #{cno} 
+</select>
+
+<update id="edit" parameterType="student">
+update student set sname=#{sname}, year=#{year}, dept=#{dept} where sno=#{sno} 
+</update>
+
+<update id="enroledit" parameterType="enrol">
+update enrol set grade=#{grade}, midterm=#{midterm}, final=#{finalstr} where sno=#{sno} and cno=#{cno} 
+</update>
+
+<select id="avg" resultType="avg" parameterType="avg"  >
+  select c.cno, cname, c.credit, round(avg(midterm),1) as midavg , avg(final) as finalavg
+from course c
+join enrol e
+on c.cno= e.cno
+group by c.cno, cname, c.credit
+</select>
+
+<delete id="delete" parameterType="enrol">
+delete from enrol where sno=#{sno} and cno= #{cno}
+</delete>
+</mapper>

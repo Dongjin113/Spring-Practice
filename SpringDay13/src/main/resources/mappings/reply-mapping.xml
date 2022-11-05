@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="REPLY">
+
+<select id="getBoard"  parameterType="reply"   resultType="reply"  >
+select idx, sno, reply, replayer, replyDate
+from student_reply where sno=#{sno} order by idx asc
+</select>
+
+<insert id="insert">
+insert into student_reply (idx, sno, reply, replayer)
+values (seq_replay.nextval, #{sno}, #{reply}, #{replayer})
+</insert>
+
+<delete id="delete" parameterType="reply">
+delete from student_reply where idx=#{idx}
+</delete>
+
+
+
+<insert id="insertEnrol" parameterType="reply">
+insert into enrol (sno, cno, grade, midterm, final)
+values(#{sno}, #{cno}, #{grade}, #{midterm}, #{finalstr})
+</insert>
+
+<delete id="deleteEnrol" parameterType="reply">
+delete from enrol where sno=#{sno} and cno=#{cno}
+</delete>
+
+</mapper>

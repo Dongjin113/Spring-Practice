@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="COURSEREPLY">
+
+<select id="getBoardList"  parameterType="coursereply"   resultType="coursereply"  >
+select idx, cno, reply, replayer, replyDate
+from course_reply where cno=#{cno} order by idx asc
+</select>
+
+<insert id="insert" parameterType="coursereply">
+insert into course_reply (idx, cno, reply, replayer)
+values (seq_replay.nextval, #{cno}, #{reply}, #{replayer})
+</insert>
+
+<delete id="delete" parameterType="coursereply">
+delete from course_reply where idx=#{idx}
+</delete>
+
+
+
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="university">
+
+<select id="student"  resultType="student"  >
+   select * from student order by sno asc      
+</select>
+
+<select id="course"  resultType="course"  >
+   select * from course order by cno asc      
+</select>
+
+<select id="enrol"  resultType="enrol"  >
+   select sno, cno, grade, midterm, final as finalstr   from enrol order by sno asc      
+</select>
+
+<select id="sejoin"  resultType="sejoin"  >
+   select  s.sno , sname, year, dept, cno, grade, final as finalstr  from student s join  enrol e on s.sno = e.sno       
+</select>
+
+<select id="secjoin"  resultType="secjoin"  >
+   select  s.sno , sname, year, s.dept sdept , e.cno, grade, final as finalstr , cname,credit, c.dept cdept ,prname 
+   from student s join  enrol e on s.sno = e.sno 
+   join course c on c.cno = e.cno       
+</select>
+
+
+</mapper>
